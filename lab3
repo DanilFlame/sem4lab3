@@ -1,0 +1,82 @@
+#include <iostream>
+using namespace std;
+struct stud
+{
+	int zalik_num;
+  char surname[20];
+	double math;
+  double inf;
+  double phys;
+  double rating;
+};
+struct cell
+{
+	stud data;
+	cell* previous;
+	cell* next;
+};
+class list
+{
+public:
+	cell* header;
+	cell* tail;
+public:
+	list() { header = NULL; tail = NULL; }
+	void add();
+	void print();
+};
+void list::add()
+{
+	cell* p;
+	p = new cell;
+	cout << "input Zalikovka Number" << endl;
+	cin >> p->data.zalik_num;
+	cout << "input surname" << endl;
+	cin >> p->data.surname;
+	cout << "input Math grade" << endl;
+	cin >> p->data.math;
+	cout << "input Inf grade" << endl;
+	cin >> p->data.inf;
+  cout << "input Phys grade" << endl;
+	cin >> p->data.phys;
+  p->data.rating=(p->data.math+p->data.inf+p->data.phys)/3;
+	if (header == NULL)
+	{
+		header = p; tail = p; tail->next = NULL; header->previous = NULL;
+	}
+	else
+	{
+		p->next = NULL;
+		p->previous = tail;
+		tail->next = p;
+		tail = p;
+	}
+}
+void list::print()
+{
+	cell* p;
+	p = header;
+	int k = 0;
+	while (p != NULL)
+	{
+		k = k + 1;
+		cout << p->data.zalik_num << "  " << p->data.surname << "  " << p->data.math << "  " << p->data.inf << " " << p->data.phys << "  " << p->data.rating << "  " << endl;
+		p = p->next;
+	}
+	if (k == 0) { cout << "empty list" << endl; }
+	else { cout << "end of list" << endl; }
+}
+int main()
+{
+	int T;
+	cout << "Enter number of students: ";
+	cin >> T;
+	list l;
+	for (int i = 0; i < T; i++)
+	{
+		l.add();
+		cout << endl;
+	}
+	l.print();
+	return 0;
+}
